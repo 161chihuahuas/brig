@@ -1,0 +1,27 @@
+{
+  "name": "@yipsec/brig",
+  "version": "1.0.0",
+  "description": "raft consensus for pirates",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/161chihuahuas/brig.git"
+  },
+  "keywords": [
+    "raft",
+    "consensus",
+    "log",
+    "cft",
+    "fault",
+    "tolerant"
+  ],
+  "author": "yipsec <161chihuahuas@disroot.org>",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/161chihuahuas/brig/issues"
+  },
+  "homepage": "https://github.com/161chihuahuas/brig#readme"
+}
