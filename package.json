@@ -4,7 +4,8 @@
   "description": "raft consensus for pirates",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test --exit"
+    "test": "mocha test --exit",
+    "generate-docs": "mkdir -p ./docs && rm -r ./docs && jsdoc index.js lib -r -c .jsdoc.json --verbose -d ./docs"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,11 @@
   "bugs": {
     "url": "https://github.com/161chihuahuas/brig/issues"
   },
-  "homepage": "https://github.com/161chihuahuas/brig#readme"
+  "homepage": "https://github.com/161chihuahuas/brig#readme",
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "clean-jsdoc-theme": "^4.3.0",
+    "jsdoc": "^4.0.4",
+    "mocha": "^11.6.0"
+  }
 }
