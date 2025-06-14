@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="en" style="font-size:16px"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Source: lib/consensus.js</title><!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="dark"><div class="sidebar-container"><div class="sidebar" id="sidebar"><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig.html">brig</a></div><div class="sidebar-section-children"><a href="module-brig_consensus.html">brig/consensus</a></div><div class="sidebar-section-children"><a href="module-brig_events.html">brig/events</a></div><div class="sidebar-section-children"><a href="module-brig_log.html">brig/log</a></div><div class="sidebar-section-children"><a href="module-brig_messages.html">brig/messages</a></div><div class="sidebar-section-children"><a href="module-brig_roles.html">brig/roles</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_consensus-NodeStateMachine.html">NodeStateMachine</a></div><div class="sidebar-section-children"><a href="module-brig_consensus-Peer.html">Peer</a></div><div class="sidebar-section-children"><a href="module-brig_consensus-RaftConsensus.html">RaftConsensus</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogEntry.html">LogEntry</a></div><div class="sidebar-section-children"><a href="module-brig_log-RaftLog.html">RaftLog</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogRequestMessage.html">LogRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogResponseMessage.html">LogResponseMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteRequestMessage.html">VoteRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteResponseMessage.html">VoteResponseMessage</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-events"><div>Events</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="events.html#~event:Broadcast">Broadcast</a></div><div class="sidebar-section-children"><a href="events.html#~event:ElectionTimeout">ElectionTimeout</a></div><div class="sidebar-section-children"><a href="events.html#~event:LogCommit">LogCommit</a></div><div class="sidebar-section-children"><a href="events.html#~event:LogRequest">LogRequest</a></div><div class="sidebar-section-children"><a href="events.html#~event:LogResponse">LogResponse</a></div><div class="sidebar-section-children"><a href="events.html#~event:ReplicationTimeout">ReplicationTimeout</a></div><div class="sidebar-section-children"><a href="events.html#~event:VoteRequest">VoteRequest</a></div><div class="sidebar-section-children"><a href="events.html#~event:VoteResponse">VoteResponse</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">lib_consensus.js</h1></header><article><pre class="prettyprint source lang-js"><code>/**
+    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="dark"><div class="sidebar-container"><div class="sidebar" id="sidebar"><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig.html">brig</a></div><div class="sidebar-section-children"><a href="module-brig_consensus.html">brig/consensus</a></div><div class="sidebar-section-children"><a href="module-brig_events.html">brig/events</a></div><div class="sidebar-section-children"><a href="module-brig_log.html">brig/log</a></div><div class="sidebar-section-children"><a href="module-brig_messages.html">brig/messages</a></div><div class="sidebar-section-children"><a href="module-brig_roles.html">brig/roles</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_consensus-Consensus.html">Consensus</a></div><div class="sidebar-section-children"><a href="module-brig_consensus-Peer.html">Peer</a></div><div class="sidebar-section-children"><a href="module-brig_log-Log.html">Log</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogEntry.html">LogEntry</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogState.html">LogState</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogRequestMessage.html">LogRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogResponseMessage.html">LogResponseMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteRequestMessage.html">VoteRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteResponseMessage.html">VoteResponseMessage</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-events"><div>Events</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_events.html#~event:Broadcast">Broadcast</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ElectionTimeout">ElectionTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogCommit">LogCommit</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogRequest">LogRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogResponse">LogResponse</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ReplicationTimeout">ReplicationTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:RoleChanged">RoleChanged</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteRequest">VoteRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteResponse">VoteResponse</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">lib_consensus.js</h1></header><article><pre class="prettyprint source lang-js"><code>/**
  * @module brig/consensus
  */
 'use strict';
 
 const { EventEmitter } = require('node:events');
-const { RaftLog } = require('./log');
+const { LogState, LogEntry } = require('./log');
 
 const {
   ElectionTimeout,
@@ -16,7 +16,8 @@ const {
   LogRequest,
   LogResponse,
   Broadcast,
-  LogCommit
+  LogCommit,
+  RoleChanged
 } = require('./events');
 
 const { Leader, Follower, Candidate } = require('./roles');
@@ -32,7 +33,10 @@ const {
 class Peer {
 
   /**
-   * 
+   * Abstract representation of a peer. Accepts any objectMode=true Duplex 
+   * stream and a unique ID. Messages sent to peer will be written to the 
+   * stream. {@link module:brig/consensus~Consensus} expects messages from 
+   * peers to be read from this stream.
    *
    * @constructor
    * @param {string} id - Peer ID.
@@ -48,41 +52,84 @@ class Peer {
 module.exports.Peer = Peer;
 
 
-class RaftConsensus extends EventEmitter {
+class Consensus extends EventEmitter {
 
+  /**
+   * Election timeout in milliseconds plus a randomized additional time.
+   * @returns {number}
+   */
   static getElectionTimeoutMs() {
-    return 500; // TODO
+    return 150 + Math.floor(Math.random() * 150);
   }
 
   /**
-   *
+   * Primary brig interface. A synchronized, crash-fault-tolerant state 
+   * machine consensus layer. Implements a Raft-like protocol.
    * 
    * @constructor
    * @param {buffer} id - Unique identifier for this node.
-   * @param {Array.&lt;module:brig/consensus~Peer>} [peers=[]] - Peer nodes as a list of 
-   * Duplex streams.
-   * @param {module:brig/consensus~NodeStateMachine} [nodeState] - Initialize 
+   * @param {Array.&lt;module:brig/consensus~Peer>} [peers=[]] - Peer nodes.
+   * @param {module:brig/log~LogState} [logState] - Initialize 
    * with the given state machine.
    */
-  constructor(id, peers = [], nodeState) {
+  constructor(id, peers = [], logState) {
     super();
 
+    /**
+     * @property {string|number} id - Unique identifier for this context. 
+     */
     this.id = id;
-    this.state = nodeState
-      ? nodeState 
-      : new NodeStateMachine();
+    /**
+     * @property {module:brig/log~LogState} state - Underlying state machine.
+     */
+    this.state = logState
+      ? logState 
+      : new LogState();
+    /**
+     * @property {Array.&lt;module:brig/consensus~Peer>} peers - Synchonized nodes.
+     */
     this.peers = peers;
 
+    // Automatically begin upon instantiation.
     this._init();
+  }
+
+  /**
+   * Sets up peer connection event listeners.
+   * 
+   * @private
+   */
+  _connectPeerStream(peer) {
+    peer.stream.on('data', (msg) => {
+      switch (msg.constructor) {
+        case VoteRequestMessage:
+          return this.emit(VoteRequest, msg);
+        case VoteResponseMessage:
+          return this.emit(VoteResponse, msg);
+        case LogRequestMessage:
+          return this.emit(LogRequest, msg);
+        case LogResponseMessage:
+          return this.emit(LogResponse, msg);
+        default:
+          this.emit('error', 
+            new TypeError('Unknown message type ' + msg.constructor.toString()));
+      }
+    });
   }
 
   /**
    * Binds event listeners to internal handler methods.
    * 
    * @private
-   * @returns {module:brig/consensus~RaftConsensus}
+   * @returns {module:brig/consensus~Consensus}
    */ 
   _init() {
+    for (let p = 0; p &lt; this.peers.length; p++) {
+      this._connectPeerStream(this.peers[p]);
+    }
+
+    this.state.on(RoleChanged, role => this.emit(RoleChanged, role));
+
     this
       .on(ElectionTimeout, () => this.startElection())
       .on(ReplicationTimeout, () => this.handleReplicateLog())
@@ -114,18 +161,34 @@ class RaftConsensus extends EventEmitter {
   }
 
   /**
-   * Resets the election timeout
+   * Adds a peer to the cluster.
+   *
+   * @param {module:brig/consensus~Peer} peer - Peer to add to cluster.
+   * @returns {module:brig/consensus~Peer}
+   */
+  addPeer(peer) {
+    this.peers.push(peer);
+    this._connectPeerStream(peer);
+
+    return this.getPeer(peer.id);
+  }
+
+  /**
+   * Resets the election timeout.
    */
   resetElectionTimer() {
     this._electionT &amp;&amp; clearTimeout(this._electionT);
     this._electionT = setTimeout(() => {
       this.emit(ElectionTimeout);
-    }, RaftConsensus.getElectionTimeoutMs());
+    }, Consensus.getElectionTimeoutMs());
   }
 
   /**
-   * Each node has a election timer, which is reset when receving the heartbeat from its leader.
-   * When the Election Timer expires, the follower will transition to the role of “candidate”. Following this transition, it will proceed to send voting requests to all nodes.
+   * Each node has a election timer, which is reset when receving the heartbeat 
+   * from its leader. When the Election Timer expires, the follower will 
+   * transition to the role of “candidate”. Following this transition, it will 
+   * proceed to send voting requests to all nodes.
+   * 
    */
   startElection() {
     this.state.toNextTerm();
@@ -143,14 +206,15 @@ class RaftConsensus extends EventEmitter {
 
   /**
    * Requests votes from each peer.
-   * @returns {module:brig/consensus~RaftConsensus}
+   *
+   * @returns {module:brig/consensus~Consensus}
    */
   requestVotes() {
     const msg = new VoteRequestMessage({
       peerId: this.id, 
       currentTerm: this.state.currentTerm, 
-      currentLogLength: this._state.log.entries.length, 
-      currentLogLastTerm: this._state.lastTerm
+      currentLogLength: this.state.log.entries.length, 
+      currentLogLastTerm: this.state.lastTerm
     });
 
     for (let i = 0; i &lt; this.peers.length; i++) {
@@ -161,18 +225,37 @@ class RaftConsensus extends EventEmitter {
   }
 
   /**
-   * When node A receives a voting request from node B, it will perform the following steps:  
-   * 1. Check if the term of B is greater than or equal the current term of A. If not, A will reject the voting request, since voting for B might result in multiple leaders in B’s term.
-   * 2. Check if the log of B is more or equal up-to-date than the log of A. If not, A will reject the voting request, since voting for B might result in log entries being lost.
-   * 3. Check if A has already voted for another candidate in the current term. If so, A will reject the voting request, since voting for B might result in multiple leaders in the current term.
-   * @param {module:brig/message~VoteRequestMessage} vReq - TODO
+   * When node A receives a voting request from node B, it will perform the 
+   * following steps:  
+   *
+   * 1. Check if the term of B is greater than or equal the current term of A. 
+   * If not, A will reject the voting request, since voting for B might result 
+   * in multiple leaders in B’s term.
+   * 
+   * 2. Check if the log of B is more or equal up-to-date than the log of A. 
+   * If not, A will reject the voting request, since voting for B might result 
+   * in log entries being lost.
+   * 
+   * 3. Check if A has already voted for another candidate in the current term. 
+   * If so, A will reject the voting request, since voting for B might result 
+   * in multiple leaders in the current term.
+   *
+   * @param {module:brig/message~VoteRequestMessage} vReq - Vote request 
+   * message.
    */
   handleVoteRequest(vReq) {
     const { params: p } = vReq;
 
-    // If the term of the candidate is greater than the current term of the node, then the node should update its current term to the term of the candidate, and become a follower. This is because:
-    // 1. If the current node is a follower: it doesn't make sense to stay in the current term, since the leader may crash or disconnect.
-    // 2. If the current node is a leader: it might be disconnected from the network or crashed for a while. In this case, the current node should step down and become a follower.
+    // If the term of the candidate is greater than the current term of the 
+    // node, then the node should update its current term to the term of the 
+    // candidate, and become a follower. This is because:
+    // 
+    // 1. If the current node is a follower: it doesn't make sense to stay in 
+    // the current term, since the leader may crash or disconnect.
+    // 
+    // 2. If the current node is a leader: it might be disconnected from the 
+    // network or crashed for a while. In this case, the current node should 
+    // step down and become a follower.
     if (p.currentTerm > this.state.currentTerm) {
       while (this.state.currentTerm &lt; p.currentTerm) {
         this.state.toNextTerm();
@@ -182,64 +265,85 @@ class RaftConsensus extends EventEmitter {
       this.state.voteFor(null);
     }
 
-    // check if the log of the candidate is more up-to-date than the log of the node. logOk means the log of the candidate is more up-to-date than the log of the current node.
+    // Check if the log of the candidate is more up-to-date than the log of 
+    // the node. logOk means the log of the candidate is more up-to-date than 
+    // the log of the current node.
     const logOk = (p.currentTerm > this.state.lastTerm) ||
       ((p.currentLogLastTerm === this.state.lastTerm) &amp;&amp;
         p.currentLogLength >= this.state.log.entries.length);
     const votedForNode = this.state.votedFor === p.id;
 
-
+    // 1. If the term of the candidate is less than the current term of the 
+    // node, then the node should reject the vote request.
+    //
+    // 2. If the log of the candidate is not more up-to-date than the log of 
+    // the node, then the node should reject the vote request.
+    // 
+    // 3. If the node has already voted for another candidate in the current 
+    // term, then the node should reject the vote request. 
     if ((p.currentTerm === this.state.currentTerm) &amp;&amp; logOk &amp;&amp; votedForNode) {
-      // 1. If the term of the candidate is less than the current term of the node, then the node should reject the vote request.
-      // 2. If the log of the candidate is not more up-to-date than the log of the node, then the node should reject the vote request.
-      // 3. If the node has already voted for another candidate in the current term, then the node should reject the vote request. 
-      this.state.voteFor(p.id);
-      this.getPeer(p.id).write(new VoteResponseMessage({
+      this.state.voteFor(p.peerId);
+      this.getPeer(p.peerId).write(new VoteResponseMessage({
         peerId: this.id,
         currentTerm: this.state.currentTerm,
         voteCasted: true
       }));
     } else {
-      this.getPeer(p.id).write(new VoteResponseMessage({
+      this.getPeer(p.peerId).stream.write(new VoteResponseMessage({
         peerId: this.id,
         currentTerm: this.state.currentTerm,
-        // false means the node does not vote for the candidate, and the node will inform the candidate its current term. This is because the candidate may have a smaller term, and the node should make the candidate to update its term.
+        // If false this means the node does not vote for the candidate, and 
+        // the node will inform the candidate its current term. This is 
+        // because the candidate may have a smaller term, and the node should 
+        // make the candidate to update its term.
         voteCasted: false
       }));
     }
   }
 
   /**
-   * Upon receiving voting responses, a node should check whether it has received a majority of votes. If so, it should transition to the role of leader. Otherwise, it should remain a candidate.
-   * @param {module:brig/messages~VoteResponseMessage} vRes - Vote response message to handle.
+   * Upon receiving voting responses, a node should check whether it has 
+   * received a majority of votes. If so, it should transition to the role of 
+   * leader. Otherwise, it should remain a candidate.
+   *
+   * @param {module:brig/messages~VoteResponseMessage} vRes - Vote response 
+   * message to handle.
    */
   handleVoteResponse(vRes) {
     const isCandidate = this.state.currentRole === Candidate;
     const isCurrentTerm = vRes.currentTerm === this.state.currentTerm;
     
-        // If the node is a candidate, and the term of the vote response is the same as the current term of the node, and the vote response is granted, then the node should add the voter to the list of votes received.
+    // If the node is a candidate, and the term of the vote response is the 
+    // same as the current term of the node, and the vote response is granted, 
+    // then the node should add the voter to the list of votes received.
     if (isCandidate &amp;&amp; isCurrentTerm &amp;&amp; vRes.voteCasted) {
       this.state.votesReceived.add(vRes.peerId);
     }
 
     const minVotesToWin = Math.ceil((this.peers.length + 1) / 2);
 
-    // if the node receives a majority of votes, then the node becomes a leader
+    // If the node receives a majority of votes, then the node becomes a leader.
     if (this.state.votesReceived.size >= minVotesToWin) {
-      this.state.setCurrentRole(Leader); // the node becomes the leader of itself
+      // The node becomes the leader of itself.
+      this.state.setCurrentRole(Leader); 
       this.state.currentLeader = this.id;
 
-      // for each follower, the node should send a heartbeat message to it
+      // For each follower, the node should send a heartbeat message to it.
       for (let i = 0; i &lt; this.peers.length; i++) { 
-        // the node assumes that the log of the follower is the same as its own log
+        // The node assumes that the log of the follower is the same as its 
+        // own log.
         this.state.sentLength[vRes.peerId] = this.state.log.entries.length;
-        // the node does not receive any ack from the follower
+        // The node does not receive any ack from the follower.
         this.state.ackedLength[vRes.peerId] = 0;
 
-        this.replicateLog(this.getPeer(vRes.peerId));
+        this.replicateLog(this.getPeer(this.id), this.getPeer(vRes.peerId));
       }
     } else if (vRes.currentTerm > this.state.currentTerm) {
-      // However, if the term of the vote response is greater than the current term of the node, then the node should update its current term to the term of the vote response, and become a follower. This is because the current node is already out of date, and it should step down and become a follower to avoid multiple leaders in the current term.
+      // However, if the term of the vote response is greater than the current 
+      // term of the node, then the node should update its current term to the 
+      // term of the vote response, and become a follower. This is because the 
+      // current node is already out of date, and it should step down and 
+      // become a follower to avoid multiple leaders in the current term.
       this.state.currentTerm = vRes.currentTerm;
       this.state.setCurrentRole(Follower);
       this.state.voteFor(null);
@@ -248,19 +352,38 @@ class RaftConsensus extends EventEmitter {
   }
 
   /**
-   * ReplicateLog is a helper function that synchronizes the log of the leader with a follower.
-   * The simplest way to synchronize the log is to send the entire log to the follower. However, this is inefficient. As mentioned earlier, the leader assumes that the log of the follower is the same as its own log when it becomes a leader. Therefore, the leader only needs to send the log entries that the follower does not have.
-   * `sentLength[follower] := log.length // the node assumes that the log of the follower is the same as its own log`
-   * The leader maintains a variable sentLength for each follower. sentLength[follower] denotes the length of the log that the leader believes the follower has. When the leader synchronizes the logs with the follower, it will send the log entries after sentLength[follower]. If the synchronization is failed, the leader will decrease sentLength[follower] by 1, and try again.
-   * @param {module:brig/consensus~Peer} peer - Peer to replicate to.
+   * Helper function that synchronizes the log of the leader with a follower.
+   * The simplest way to synchronize the log is to send the entire log to the 
+   * follower. However, this is inefficient. As mentioned earlier, the leader 
+   * assumes that the log of the follower is the same as its own log when it 
+   * becomes a leader. Therefore, the leader only needs to send the log entries 
+   * that the follower does not have.
+   *
+   * ```
+   * sentLength[follower] := log.length 
+   * // the node assumes that the log of the follower is the same as its own log
+   * ```
+   *
+   * The leader maintains a variable `sentLength` for each follower. 
+   * `sentLength[follower]` denotes the length of the log that the leader 
+   * believes the follower has. When the leader synchronizes the logs with the 
+   * follower, it will send the log entries after `sentLength[follower]`. If 
+   * the synchronization is failed, the leader will decrease 
+   * `sentLength[follower]` by 1, and try again.
+   *
+   * @param {module:brig/consensus~Peer} leader - Peer to replicate from.
+   * @param {module:brig/consensus~Peer} follower - Peer to replicate to.
    */
   replicateLog(leader, follower) {
-    // we call the log entries that the leader believes are already replicated on the follower as prefix
+    // We call the log entries that the leader believes are already replicated 
+    // on the follower as prefix.
     const prefixLength = this.state.sentLength[follwer.id];
-    // only send the suffix of the log to the follower
+
+    // Only send the suffix of the log to the follower.
     const suffix = this.state.log.getEntriesAfterIndex(prefixLength);
 
-    // prefixTerm is the term of the last log entry in the prefix. We will explain it later.
+    // prefixTerm is the term of the last log entry in the prefix. We will 
+    // explain it later.
     let prefixTerm = 0;
 
     if (prefixLength > 0) {
@@ -278,73 +401,109 @@ class RaftConsensus extends EventEmitter {
   }
 
   /**
-   * When the application layer triggers a broadcast, the leader will append the broadcast message to its log, and send the log entry to all followers. If the current node is not a leader, it will forward the broadcast message to the leader.
-   * @param {module:brig/messages~BroadcastMessage} bCast - Message to be broadcasted.
+   * When the application layer triggers a broadcast, the leader will append 
+   * the broadcast message to its log, and send the log entry to all followers. 
+   * If the current node is not a leader, it will forward the broadcast message 
+   * to the leader.
+   *
+   * @param {object} payload - Payload to be included in log entry.
+   * broadcasted.
    */
   handleBroadcast(bCast) {
-    // if the node is a leader, then it can directly append the message to its log
+    // If the node is a leader, then it can directly append the message to its 
+    // log.
     if (this.state.currentRole === Leader) {
-      this.state.log.append(bCast);
+      this.state.log.append(new LogEntry(bCast, this.state.currentTerm));
 
-      // the node is synchronized with itself
+      // The node is synchronized with itself.
       this.state.ackedLength[this.id] = this.state.log.entries.length;
 
-      // synchronize the log with all followers
+      // Synchronize the log with all followers.
       for (let i = 0; i &lt; this.peers.length; i++) {
-        this.replicateLog(this.peers[i]);
+        this.replicateLog(this.getPeer(this.id), this.peers[i]);
       }
-    // if the node is not a leader, but it follows a leader, then it should forward the request to the leader
     } else if (this.state.currentLeader !== null) {
-      // TODO forward the request to currentLeader via a FIFO link
-    } else { // if the node is not a leader, and it does not follow a leader, then it should buffer the message until it follows a leader
-      // TODO buffer the message until currentLeader != null 
+      // If the node is not a leader, but it follows a leader, then it should 
+      // forward the request to the leader.
+      this.replicateLog(this.getPeer(this.id), this.getPeer(this.state.currentLeader));
+    } else { 
+      // If the node is not a leader, and it does not follow a 
+      // leader, then it should buffer the message until it follows a leader.
+      this.once(RoleChanged, (_role) => this.handleBroadcast(bCast));
     }
   }
 
   /**
-   * When the replication timer expires, the leader will synchronize its log with all followers. The synchronization message also serves as a heartbeat message.
+   * When the replication timer expires, the leader will synchronize its log 
+   * with all followers. The synchronization message also serves as a heartbeat 
+   * message.
+   *
    */
   handleReplicateLog() {
     if (this.state.currentRole === Leader) {
       for (let i = 0; i &lt; this.peers.length; i++) {
-        this.replicateLog(this.peers[i]);
+        this.replicateLog(this.getPeer(this.id), this.peers[i]);
       }
     }
   }
 
   /**
-   * When a follower receives a synchronization message from the leader, it will perform the following steps:
-   * 1. The follower will check whether the log is consistent with the log entries that the leader believes the follower has. If not, the follower will reject the synchronization request.
-   * 2. If the log is consistent, the follower will append the suffix log entries to its own log.
-   * 3. The follower will check whether the leader has committed any log entries. If so, the follower will commit the log entries that the leader has committed.
-   * To check whether the log is consistent, the follower will compare the term of the last log entry in the prefix with leader’s prefix_term. If they are not equal, the log is inconsistent. It is true due to a property of Raft: if two nodes have the same log term at the same index, then they have the same log entries at and before that index. Here we don’t give the proof of this property, but you can find it in the original paper.
-   * @param {module:brig/messages~LogRequestMessage} lReq - TODO
+   * When a follower receives a synchronization message from the leader, it 
+   * will perform the following steps:
+   *
+   * 1. The follower will check whether the log is consistent with the log 
+   * entries that the leader believes the follower has. If not, the follower 
+   * will reject the synchronization request.
+   *
+   * 2. If the log is consistent, the follower will append the suffix log 
+   * entries to its own log.
+   *
+   * 3. The follower will check whether the leader has committed any log 
+   * entries. If so, the follower will commit the log entries that the leader 
+   * has committed.
+   * 
+   * To check whether the log is consistent, the follower will compare the term 
+   * of the last log entry in the prefix with leader’s prefix_term. If they are 
+   * not equal, the log is inconsistent. It is true due to a property of Raft: 
+   * if two nodes have the same log term at the same index, then they have the 
+   * same log entries at and before that index. Here we don’t give the proof of 
+   * this property, but you can find it in the original paper.
+   * 
+   * @param {module:brig/messages~LogRequestMessage} lReq - Append entries 
+   * request message.
    */
   handleLogRequest(lReq) {
     const { params: p } = lReq;
     
-    // if the term of the log request is greater than the current term of the node, then the node should become a follower of the leader
+    // If the term of the log request is greater than the current term of the 
+    // node, then the node should become a follower of the leader.
     if (p.term > this.state.currentTerm) {
       this.state.currentTerm = p.currentTerm;
       this.voteFor(null);
       this.resetElectionTimer();
     } 
 
-    // if the term of the log request is the same as the current term of the node, then the node should become a follower of the leader (the current node might be a candidate)
+    // If the term of the log request is the same as the current term of the 
+    // node, then the node should become a follower of the leader (the current 
+    // node might be a candidate).
     if (p.term === this.state.currentTerm) {
       this.state.setCurrentRole(Follower);
       this.state.currentLeader = p.leaderId;
     }
 
-    // if logOk is true, then the prefix of the leader is the same as the prefix of the follower. Otherwise, the leader should send the log request again.
+    // If logOk is true, then the prefix of the leader is the same as the 
+    // prefix of the follower. Otherwise, the leader should send the log 
+    // request again.
     const logOk = (this.state.log.entries.length >= p.prefixLength) &amp;&amp;
       (p.prefixLength === 0 || 
         this.state.log[p.prefixLength - 1].term === prefixTerm);
 
     if (p.term === this.state.currentTerm &amp;&amp; logOk) {
-      // update the log using suffix
+      // Update the log using suffix.
       this.appendEntries(p.prefixLength, p.leaderCommit, p.suffix);
-      // the node should notify the leader that it has received the log entries
+
+      // The node should notify the leader that it has received the log 
+      // entries.
       const ack = prefixLength + suffix.length;
 
       this.getPeer(p.leaderId).stream.write(new LogResponseMessage({
@@ -364,47 +523,65 @@ class RaftConsensus extends EventEmitter {
   }
 
   /**
-   * AppendEntries is a helper function that appends the suffix log entries to the log of the follower. 
-   * Here we check whether the follower has the same suffix log entries as the leader. If not, the follower will remove all the log entries after prefix from its log, and append the suffix log entries from leader to its log.
-   * @param {number} prefixLength - TODO
-   * @param {number} leaderCommit - TODO
-   * @param {Array.&lt;module:brig/messages~LogEntry>} suffix - TODO
+   * Appends the suffix log entries to the log of the follower. Here we check 
+   * whether the follower has the same suffix log entries as the leader. If 
+   * not, the follower will remove all the log entries after prefix from its 
+   * log, and append the suffix log entries from leader to its log.
+   *
+   * @param {number} prefixLength - Number of entries before current.
+   * @param {number} leaderCommit - Number of commits on the leader.
+   * @param {Array.&lt;module:brig/messages~LogEntry>} suffix - Entries to append.
    */
   appendEntries(prefixLength, leaderCommit, suffix) {
-    // if the suffix of the leader is not empty, and the suffix of the follower is not empty
+    // If the suffix of the leader is not empty, and the suffix of the follower 
+    // is not empty.
     if (suffix.length > 0 &amp;&amp; this.state.log.entries.length > prefixLength) {
-      // get the index of the last log entry that can be compared
+      
+      // Get the index of the last log entry that can be compared.
       let index = Math.min(this.state.log.length, 
         prefixLength + suffix.length) - 1;
 
-      // if they have different terms, then the suffix of the follower might be different from the suffix of the leader
+      // If they have different terms, then the suffix of the follower might be 
+      // different from the suffix of the leader.
       if (this.state.log.entries[index].term !== suffix[index - prefixLength].term) {
-        // remove the suffix of the follower
+        
+        // Remove the suffix of the follower.
         this.state.log.entries = this.state.log.entries.slice(0, prefixLength);
       }
     }
 
-    // if the we can find log entries that can be appended
+    // If the we can find log entries that can be appended.
     if (prefixLength + suffix.length > this.state.log.entries.length) {
       for (let i = this.state.log.entries.length - prefixLength; i &lt; suffix.length; i++) {
-        this.state.log.append(suffix[i]); // append the log entries to the log
+
+        // Append the log entries to the log.
+        this.state.log.append(suffix[i]); 
       }
     }
 
-    // logs[0..leaderCommit − 1] are acknowledged by the majority of nodes, so we can commit those log entries
+    // logs[0..leaderCommit − 1] are acknowledged by the majority of nodes, so 
+    // we can commit those log entries.
     if (leaderCommit > this.state.commitLength) {
       for (let i = this.state.commitLength; i &lt; leaderCommit; i++) {
         this.emit(LogCommit, this.state.log.entries[i]);
       }
+
       this.state.commitLength = leaderCommit;
     }
   }
 
   /**
-   * When the leader receives a log response from a follower, it will perform the following steps:
-   * 1. If the synchronization is successful, the leader will update ackedLength and sentLength of the follower.
-   * 2. If the synchronization is failed, the leader will decrease sentLength of the follower by 1, and try again.
-   * @param {module:brig/messages~LogResponseMessage} lRes - TODO
+   * When the leader receives a log response from a follower, it will perform 
+   * the following steps:
+   *
+   * 1. If the synchronization is successful, the leader will update 
+   * `ackedLength` and `sentLength` of the follower.
+   *
+   * 2. If the synchronization is failed, the leader will decrease `sentLength` 
+   * of the follower by 1, and try again.
+   *
+   * @param {module:brig/messages~LogResponseMessage} lRes - Append entries 
+   * response message.
    */
   handleLogResponse(lRes) {
     const { result: r } = lRes;
@@ -417,7 +594,7 @@ class RaftConsensus extends EventEmitter {
       } else if (this.state.sentLength.get(r.follower) > 0) {
         this.state.sentLength.set(r.follower, 
           this.state.sentLength.get(r.follower) - 1);
-        this.replicateLog(this.id, r.follower);
+        this.replicateLog(this.getPeer(this.id), r.follower);
       }
     } else if (r.term > this.state.currentTerm) {
       this.state.currentTerm = r.term;
@@ -428,8 +605,9 @@ class RaftConsensus extends EventEmitter {
   }
 
   /**
-   * The number of nodes whose ackedLength is greater than or equal to x.
-   * @param {number} length - TODO
+   * The number of nodes whose `ackedLength` is greater than or equal to x.
+   *
+   * @param {number} x - Minimum number of acks.
    * @returns {number}
    */
   acks(length) {
@@ -445,7 +623,9 @@ class RaftConsensus extends EventEmitter {
   }
     
   /**
-   * If the leader receives a majority of acknowledgements for a log entry, it will commit the log entry.
+   * If the leader receives a majority of acknowledgements for a log entry, it 
+   * will commit the log entry.
+   *
    */
   commitLogEntries() {
     const minAcks = ((this.peers.length + 1) + 1) / 2;
@@ -468,77 +648,5 @@ class RaftConsensus extends EventEmitter {
 
 }
 
-module.exports.RaftConsensus = RaftConsensus;
-
-
-class NodeStateMachine {
-
-  /**
-   *
-   *
-   * @constructor
-   * @param {module:brig/cosensus~NodeStateMachineOptions} [nodeState] - State 
-   * to initialize with.
-   */
-  constructor(nodeState = {}) {
-    this.currentTerm = nodeState.currentTerm || 0;
-    this.votedFor = nodeState.votedFor || null;
-    this.currentRole = nodeState.currentRole || Follower;
-    this.currentLeader = nodeState.currentLeader || null;
-    this.votesReceived = nodeState.votesReceived || new Set();
-    this.log = new RaftLog(nodeState.log);
-    this.commitLength = nodeState.commitLength || 0;
-    this.sentLength = nodeState.sentLength || new Map();
-    this.ackedLength = nodeState.ackedLength || new Map();
-  }
-
-  /**
-   * Increments the current term by 1.
-   * @returns {module:brig/consensus~NodeStateMachine}
-   */
-  toNextTerm() {
-    this.currentTerm++;
-    return this;
-  }
-
-  /**
-   * Sets the current role to the given symbol.
-   * @param {module:brig/roles~Follower|module:brig/roles~Candidate|module:brig/roles~Follower} role - 
-   * Symbol for the role to set.
-   * @returns {module:brig/consensus~NodeStateMachine} 
-   */
-  setCurrentRole(role) {
-    if (![Follower, Candidate, Leader].includes(role)) {
-      throw new Error('Invalid role.');
-    }
-
-    this.currentRole = role;
-    return this;
-  }
-
-  /**
-   * Sets the current vote for the given ID.
-   * @param {buffer} id - Node ID to vote for.
-   * @returns {module:brig/consensus~NodeStateMachine}
-   */
-  voteFor(id) {
-    this.votedFor = id;
-    this.votesReceived.clear();
-    this.votesReceived.add(id);
-    return this;
-  }
-
-  /**
-   * The last term number.
-   */
-  static get lastTerm() {
-    if (this.log.entries.length > 0) {
-      return this.log.entries[this.log.entries.length - 1].term;
-    }
-    return 0;
-  }
-
-}
-
-module.exports.NodeStateMachine = NodeStateMachine;
-</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><div class="mobile-nav-links"></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig.html">brig</a></div><div class="sidebar-section-children"><a href="module-brig_consensus.html">brig/consensus</a></div><div class="sidebar-section-children"><a href="module-brig_events.html">brig/events</a></div><div class="sidebar-section-children"><a href="module-brig_log.html">brig/log</a></div><div class="sidebar-section-children"><a href="module-brig_messages.html">brig/messages</a></div><div class="sidebar-section-children"><a href="module-brig_roles.html">brig/roles</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_consensus-NodeStateMachine.html">NodeStateMachine</a></div><div class="sidebar-section-children"><a href="module-brig_consensus-Peer.html">Peer</a></div><div class="sidebar-section-children"><a href="module-brig_consensus-RaftConsensus.html">RaftConsensus</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogEntry.html">LogEntry</a></div><div class="sidebar-section-children"><a href="module-brig_log-RaftLog.html">RaftLog</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogRequestMessage.html">LogRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogResponseMessage.html">LogResponseMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteRequestMessage.html">VoteRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteResponseMessage.html">VoteResponseMessage</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-events"><div>Events</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="events.html#~event:Broadcast">Broadcast</a></div><div class="sidebar-section-children"><a href="events.html#~event:ElectionTimeout">ElectionTimeout</a></div><div class="sidebar-section-children"><a href="events.html#~event:LogCommit">LogCommit</a></div><div class="sidebar-section-children"><a href="events.html#~event:LogRequest">LogRequest</a></div><div class="sidebar-section-children"><a href="events.html#~event:LogResponse">LogResponse</a></div><div class="sidebar-section-children"><a href="events.html#~event:ReplicationTimeout">ReplicationTimeout</a></div><div class="sidebar-section-children"><a href="events.html#~event:VoteRequest">VoteRequest</a></div><div class="sidebar-section-children"><a href="events.html#~event:VoteResponse">VoteResponse</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>
+module.exports.Consensus = Consensus;
+</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><div class="mobile-nav-links"></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig.html">brig</a></div><div class="sidebar-section-children"><a href="module-brig_consensus.html">brig/consensus</a></div><div class="sidebar-section-children"><a href="module-brig_events.html">brig/events</a></div><div class="sidebar-section-children"><a href="module-brig_log.html">brig/log</a></div><div class="sidebar-section-children"><a href="module-brig_messages.html">brig/messages</a></div><div class="sidebar-section-children"><a href="module-brig_roles.html">brig/roles</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_consensus-Consensus.html">Consensus</a></div><div class="sidebar-section-children"><a href="module-brig_consensus-Peer.html">Peer</a></div><div class="sidebar-section-children"><a href="module-brig_log-Log.html">Log</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogEntry.html">LogEntry</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogState.html">LogState</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogRequestMessage.html">LogRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogResponseMessage.html">LogResponseMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteRequestMessage.html">VoteRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteResponseMessage.html">VoteResponseMessage</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-events"><div>Events</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_events.html#~event:Broadcast">Broadcast</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ElectionTimeout">ElectionTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogCommit">LogCommit</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogRequest">LogRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogResponse">LogResponse</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ReplicationTimeout">ReplicationTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:RoleChanged">RoleChanged</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteRequest">VoteRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteResponse">VoteResponse</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>
