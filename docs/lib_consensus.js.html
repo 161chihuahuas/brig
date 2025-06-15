@@ -240,7 +240,7 @@ class Consensus extends EventEmitter {
    * If so, A will reject the voting request, since voting for B might result 
    * in multiple leaders in the current term.
    *
-   * @param {module:brig/message~VoteRequestMessage} vReq - Vote request 
+   * @param {module:brig/messages~VoteRequestMessage} vReq - Vote request 
    * message.
    */
   handleVoteRequest(vReq) {
@@ -406,8 +406,7 @@ class Consensus extends EventEmitter {
    * If the current node is not a leader, it will forward the broadcast message 
    * to the leader.
    *
-   * @param {object} payload - Payload to be included in log entry.
-   * broadcasted.
+   * @param {object} payload - Payload to be included in log entry broadcasted.
    */
   handleBroadcast(bCast) {
     // If the node is a leader, then it can directly append the message to its 
@@ -530,7 +529,7 @@ class Consensus extends EventEmitter {
    *
    * @param {number} prefixLength - Number of entries before current.
    * @param {number} leaderCommit - Number of commits on the leader.
-   * @param {Array.&lt;module:brig/messages~LogEntry>} suffix - Entries to append.
+   * @param {Array.&lt;module:brig/log~LogEntry>} suffix - Entries to append.
    */
   appendEntries(prefixLength, leaderCommit, suffix) {
     // If the suffix of the leader is not empty, and the suffix of the follower 

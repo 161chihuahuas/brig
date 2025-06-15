@@ -42,6 +42,12 @@ describe('@module brig/consensus', function() {
       CONSENSUS[0].once(events.ElectionTimeout, done);
     });
 
+    it('broadcasts log entry to peers', function() {
+      CONSENSUS[0].emit(events.Broadcast, {
+        hello: 'brig'
+      });
+    });
+
   });
 
   after(function() {
