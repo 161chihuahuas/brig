@@ -4,7 +4,6 @@ const { PassThrough } = require('node:stream');
 const { randomUUID } = require('node:crypto');
 const { expect } = require('chai');
 const { events, consensus, roles } = require('..');
-const { ElectionTimeout } = require('../lib/events');
 
 
 describe('@module brig/consensus', function() {
@@ -30,7 +29,7 @@ describe('@module brig/consensus', function() {
         peers.push(PEERS[c]);
       }
 
-      CONSENSUS.push(new consensus.Consensus(peer.id, peers));
+      CONSENSUS.push(new consensus.Cluster(peer.id, peers));
     }
 
     /* really verbose logs
@@ -57,10 +56,10 @@ describe('@module brig/consensus', function() {
     }, 100);
   });
 
-  describe('~Consensus', function() {
+  describe('~Cluster', function() {
 
     it('creates a valid instance', function() {
-      expect(CONSENSUS[0]).to.be.instanceOf(consensus.Consensus);
+      expect(CONSENSUS[0]).to.be.instanceOf(consensus.Cluster);
     }); 
 
     it('starts an election', function(done) {
