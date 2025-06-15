@@ -48,8 +48,12 @@ class Log {
    * @param {module:brig/log~LogEntry} logEntry - Entry to append.
    * @returns {module:brig/log~Log}
    */
-  append(logEntry = new LogEntry()) {
-    this.entries.push(logEntry);
+  append(logEntry) {
+    if (logEntry instanceof LogEntry) {
+      this.entries.push(logEntry);
+    } else {
+      throw new TypeError('Invalid LogEntry.');
+    }
     return this;
   }
 

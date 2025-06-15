@@ -22,9 +22,9 @@ const peer3 = new consensus.Peer(randomUUID(), new PassThrough({
 }));
 
 // Each peer is given to a cluster.
-const cluster1 = new consensus.Cluster(peer1.id, [peer1, peer2, peer3]); 
-const cluster2 = new consensus.Cluster(peer2.id, [peer1, peer2, peer3]); 
-const cluster3 = new consensus.Cluster(peer3.id, [peer1, peer2, peer3]); 
+const cluster1 = new consensus.Cluster(peer1.id, [peer1, peer2, peer3]).join(); 
+const cluster2 = new consensus.Cluster(peer2.id, [peer1, peer2, peer3]).join(); 
+const cluster3 = new consensus.Cluster(peer3.id, [peer1, peer2, peer3]).join(); 
 
 // A cluster can broadcast log payloads. They will be synchronized.
 cluster1.broadcast({ log: 'entry' });

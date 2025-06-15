@@ -91,9 +91,13 @@ class Cluster extends EventEmitter {
      * @property {Array.&lt;module:brig/consensus~Peer>} peers - Synchonized nodes.
      */
     this.peers = peers;
+  }
 
-    // Automatically begin upon instantiation.
-    this._init();
+  /**
+   * Initializes consensus algorithm.
+   */
+  join() {
+    return this._init();
   }
 
   /**
@@ -115,6 +119,7 @@ class Cluster extends EventEmitter {
 
     peer.stream.on('data', (msg) => {
       this._dbg('Received message: ', msg, ' from peer: ', peer.id);
+      this.resetElectionTimer();
 
       switch (msg.constructor) {
         case VoteRequestMessage:
@@ -148,6 +153,12 @@ class Cluster extends EventEmitter {
     this.state.on(RoleChanged, role => {
       this._dbg('Node role changed to: ', role);
       this.emit(RoleChanged, role);
+
+      if (role === Leader) {
+        this.startHeartbeat();
+      } else {
+        clearTimeout(this._heartbeatT);
+      }
     });
 
     this
@@ -172,7 +183,7 @@ class Cluster extends EventEmitter {
    * @returns {module:brig/consensus~Peer}
    */
   getPeer(id) {
-  this._dbg('Looking for peer by ID: ', id);
+    this._dbg('Looking for peer by ID: ', id);
 
     for (let i = 0; i &lt; this.peers.length; i++) {
       if (this.peers[i].id === id) {
@@ -211,6 +222,17 @@ class Cluster extends EventEmitter {
     }, Cluster.getElectionTimeoutMs());
   }
 
+  /**
+   * Sends heartbeat messages to maintain authority and to replicate the log.
+   */
+  startHeartbeat() {
+    this._heartbeatT &amp;&amp; clearTimeout(this._heartbeatT);
+    this._heartbeatT = setTimeout(() => {
+      this.emit(ReplicationTimeout);
+      this.startHeartbeat();
+    }, 500);
+  }
+  
   /**
    * Each node has a election timer, which is reset when receving the heartbeat 
    * from its leader. When the Election Timer expires, the follower will 
@@ -541,6 +563,8 @@ class Cluster extends EventEmitter {
    * request message.
    */
   handleLogRequest(lReq) {
+    this._dbg('Handling LogRequestMessage:', lReq);
+
     const { params: p } = lReq;
     
     // If the term of the log request is greater than the current term of the 
@@ -656,17 +680,19 @@ class Cluster extends EventEmitter {
    * response message.
    */
   handleLogResponse(lRes) {
+    this._dbg('Handling LogResponseMessage:', lRes);
+
     const { result: r } = lRes;
 
     if (r.term === this.state.currentTerm &amp;&amp; this.state.currentRole === Leader) {
-      if (r.success &amp;&amp; r.ack >= this.state.ackedLength.get(r.follower)) {
-        this.state.sentLength.set(r.follower, r.ack);
-        this.state.ackedLength.set(r.follower, r.ack);
+      if (r.success &amp;&amp; r.ack >= this.state.ackedLength.get(r.followerId)) {
+        this.state.sentLength.set(r.followerId, r.ack);
+        this.state.ackedLength.set(r.followerId, r.ack);
         this.commitLogEntries();
-      } else if (this.state.sentLength.get(r.follower) > 0) {
-        this.state.sentLength.set(r.follower, 
-          this.state.sentLength.get(r.follower) - 1);
-        this.replicateLog(this.getPeer(this.id), r.follower);
+      } else if (this.state.sentLength.get(r.followerId) > 0) {
+        this.state.sentLength.set(r.followerId, 
+          this.state.sentLength.get(r.followerId) - 1);
+        this.replicateLog(this.getPeer(this.id), this.getPeer(r.followerId));
       }
     } else if (r.term > this.state.currentTerm) {
       this.state.currentTerm = r.term;

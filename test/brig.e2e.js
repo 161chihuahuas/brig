@@ -14,7 +14,7 @@ describe('@module brig/consensus', function() {
 
   this.timeout(8000);
 
-  before(function(done) {
+  before(async function() {
     for (let i = 0; i < NODES; i++) {
       PEERS.push(new consensus.Peer(randomUUID(), new PassThrough({
         objectMode: true
@@ -32,7 +32,8 @@ describe('@module brig/consensus', function() {
       CONSENSUS.push(new consensus.Cluster(peer.id, peers));
     }
 
-    /* really verbose logs
+     
+    //really verbose logs
     for (let c = 0; c < CONSENSUS.length; c++) {
       CONSENSUS[c].on(events.Debug, messages => {
         console.log(
@@ -41,19 +42,18 @@ describe('@module brig/consensus', function() {
         );
       });
     }
-    */
-    function leaderElected() {
-      return CONSENSUS.map(c => {
-        return c.state.currentRole;
-      }).includes(roles.Leader);
+   
+    for (let i = 0; i < CONSENSUS.length; i++) {
+      const cluster = CONSENSUS[i];
+      await (function() {
+        return new Promise((resolve) => {
+          setTimeout(function() {
+            cluster.join();
+            resolve();
+          }, 200);
+        });
+      })()
     }
-
-    const waitForLeader = setInterval(function() {
-      if (leaderElected()) {
-        clearInterval(waitForLeader);
-        done();
-      }
-    }, 100);
   });
 
   describe('~Cluster', function() {
