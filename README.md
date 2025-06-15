@@ -42,8 +42,11 @@ const cluster3 = new consensus.Cluster(peer3.id, [peer1, peer2, peer3]);
 cluster1.broadcast({ log: 'entry' });
 
 // The other nodes will have their state updated.
-cluster2.state.log.getEntryByIndex(0); // {LogEntry log: 'entry'}
-cluster3.state.log.getEntryByIndex(0); // {LogEntry log: 'entry'}
+cluster2.state.log.getEntryByIndex(0); // LogEntry <log: 'entry'>
+cluster3.state.log.getEntryByIndex(0); // LogEntry <log: 'entry'>
+
+// Persist log to disk.
+cluster1.state.serialize(); // Buffer <...>
 ```
 
 ## copying
