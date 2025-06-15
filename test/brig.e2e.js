@@ -85,9 +85,14 @@ describe('@module brig/consensus', function() {
       for (let i = 0; i < CONSENSUS.length; i++) {
         setTimeout(() => {
           CONSENSUS[i].broadcast({ publisher: CONSENSUS[i].id });
-        }, Math.ceil(Math.random() * 300));
+        }, i * 1000);
       }
       setTimeout(() => {
+        console.log(CONSENSUS.map(c => { 
+          return {id:c.id, 
+          role:c.state.currentRole 
+        }}))
+        console.log(CONSENSUS.map(c=>c.state.log.entries.map(e=>e.payload)))
         CONSENSUS.forEach(c => {
           expect(c.state.log.entries).to.have.lengthOf(CONSENSUS.length + 1);
         });

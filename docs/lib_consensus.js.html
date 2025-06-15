@@ -61,7 +61,7 @@ class Cluster extends EventEmitter {
    * @returns {number}
    */
   static getElectionTimeoutMs() {
-    return 150 + Math.floor(Math.random() * 150);
+    return 750 + Math.floor(Math.random() * 250);
   }
 
   /**
@@ -156,7 +156,9 @@ class Cluster extends EventEmitter {
 
       if (role === Leader) {
         this.startHeartbeat();
+        clearTimeout(this._electionT);
       } else {
+        this.resetElectionTimer();
         clearTimeout(this._heartbeatT);
       }
     });
@@ -170,7 +172,6 @@ class Cluster extends EventEmitter {
       .on(LogResponse, (lRes) => this.handleLogResponse(lRes))
       .on(Broadcast, (bCast) => this.handleBroadcast(bCast));
 
-    this._dbg('Starting election timer.');
     this.resetElectionTimer();
 
     return this;
@@ -229,7 +230,6 @@ class Cluster extends EventEmitter {
     this._heartbeatT &amp;&amp; clearTimeout(this._heartbeatT);
     this._heartbeatT = setTimeout(() => {
       this.emit(ReplicationTimeout);
-      this.startHeartbeat();
     }, 500);
   }
   
@@ -241,15 +241,16 @@ class Cluster extends EventEmitter {
    * 
    */
   startElection() {
-    this._dbg('Starting leader election. Advancing term...');
-
-    this.state.toNextTerm();
+    this._dbg('Starting leader election...');
 
     if (this.state.currentRole === Leader) {
       this._dbg('This node is already the Leader.');
       return;
     }
-
+    
+    this._dbg('Advancing term.');
+    this.state.toNextTerm();
+    
     this.state.setCurrentRole(Candidate);
     this.state.voteFor(this.id);
 
