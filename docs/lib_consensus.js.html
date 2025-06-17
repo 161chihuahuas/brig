@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" style="font-size:16px"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Source: lib/consensus.js</title><!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="dark"><div class="sidebar-container"><div class="sidebar" id="sidebar"><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig.html">brig</a></div><div class="sidebar-section-children"><a href="module-brig_consensus.html">brig/consensus</a></div><div class="sidebar-section-children"><a href="module-brig_events.html">brig/events</a></div><div class="sidebar-section-children"><a href="module-brig_log.html">brig/log</a></div><div class="sidebar-section-children"><a href="module-brig_messages.html">brig/messages</a></div><div class="sidebar-section-children"><a href="module-brig_roles.html">brig/roles</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_consensus-Cluster.html">Cluster</a></div><div class="sidebar-section-children"><a href="module-brig_consensus-Peer.html">Peer</a></div><div class="sidebar-section-children"><a href="module-brig_log-Log.html">Log</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogEntry.html">LogEntry</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogState.html">LogState</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogRequestMessage.html">LogRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogResponseMessage.html">LogResponseMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteRequestMessage.html">VoteRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteResponseMessage.html">VoteResponseMessage</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-events"><div>Events</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_events.html#~event:Broadcast">Broadcast</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:Debug">Debug</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ElectionTimeout">ElectionTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogCommit">LogCommit</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogRequest">LogRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogResponse">LogResponse</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ReplicationTimeout">ReplicationTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:RoleChanged">RoleChanged</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteRequest">VoteRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteResponse">VoteResponse</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">lib_consensus.js</h1></header><article><pre class="prettyprint source lang-js"><code>/**
+    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="dark"><div class="sidebar-container"><div class="sidebar" id="sidebar"><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig.html">brig</a></div><div class="sidebar-section-children"><a href="module-brig_consensus.html">brig/consensus</a></div><div class="sidebar-section-children"><a href="module-brig_events.html">brig/events</a></div><div class="sidebar-section-children"><a href="module-brig_log.html">brig/log</a></div><div class="sidebar-section-children"><a href="module-brig_messages.html">brig/messages</a></div><div class="sidebar-section-children"><a href="module-brig_roles.html">brig/roles</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_consensus-Cluster.html">Cluster</a></div><div class="sidebar-section-children"><a href="module-brig_consensus-Peer.html">Peer</a></div><div class="sidebar-section-children"><a href="module-brig_log-Log.html">Log</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogEntry.html">LogEntry</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogState.html">LogState</a></div><div class="sidebar-section-children"><a href="module-brig_messages-BroadcastMessage.html">BroadcastMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogRequestMessage.html">LogRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogResponseMessage.html">LogResponseMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteRequestMessage.html">VoteRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteResponseMessage.html">VoteResponseMessage</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-events"><div>Events</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_events.html#~event:Broadcast">Broadcast</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:Debug">Debug</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ElectionTimeout">ElectionTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogCommit">LogCommit</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogRequest">LogRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogResponse">LogResponse</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ReplicationTimeout">ReplicationTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:RoleChanged">RoleChanged</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:RoleChanged">RoleChanged</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteRequest">VoteRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteResponse">VoteResponse</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">lib_consensus.js</h1></header><article><pre class="prettyprint source lang-js"><code>/**
  * @module brig/consensus
  * @see https://liangrunda.com/posts/raft-lite/
  */
@@ -19,6 +19,7 @@ const {
   Broadcast,
   LogCommit,
   RoleChanged,
+  LeaderChanged,
   Debug
 } = require('./events');
 
@@ -28,7 +29,8 @@ const {
   VoteRequestMessage,
   VoteResponseMessage,
   LogRequestMessage,
-  LogResponseMessage
+  LogResponseMessage,
+  BroadcastMessage
 } = require('./messages');
 
 
@@ -61,7 +63,11 @@ class Cluster extends EventEmitter {
    * @returns {number}
    */
   static getElectionTimeoutMs() {
-    return 750 + Math.floor(Math.random() * 250);
+    return 1000 + Math.floor(Math.random() * 250);
+  }
+
+  static getReplicateTimeoutMs() {
+    return 500 + Math.floor(Math.random() * 100);
   }
 
   /**
@@ -91,6 +97,8 @@ class Cluster extends EventEmitter {
      * @property {Array.&lt;module:brig/consensus~Peer>} peers - Synchonized nodes.
      */
     this.peers = peers;
+
+    this._bcastMsgBuffer = [];
   }
 
   /**
@@ -115,7 +123,7 @@ class Cluster extends EventEmitter {
    * @private
    */
   _connectPeerStream(peer) {
-    this._dbg('Setting up message handlers for peer:', peer);
+    this._dbg('Setting up message handlers for peer:', peer.id);
 
     peer.stream.on('data', (msg) => {
       this._dbg('Received message: ', msg, ' from peer: ', peer.id);
@@ -130,6 +138,8 @@ class Cluster extends EventEmitter {
           return this.emit(LogRequest, msg);
         case LogResponseMessage:
           return this.emit(LogResponse, msg);
+        case BroadcastMessage:
+          return this.emit(Broadcast, msg);
         default:
           this.emit('error', 
             new TypeError('Unknown message type ' + msg.constructor.toString()));
@@ -147,19 +157,36 @@ class Cluster extends EventEmitter {
     this._dbg('Initializing consensus module for node: ', this.id);
 
     for (let p = 0; p &lt; this.peers.length; p++) {
+      if (this.id === this.peers[p].id) {
+        continue;
+      }
       this._connectPeerStream(this.peers[p]);
     }
 
-    this.state.on(RoleChanged, role => {
-      this._dbg('Node role changed to: ', role);
-      this.emit(RoleChanged, role);
+    this.state.on(RoleChanged, (oldRole, newRole) => {
+      this._dbg('Node role changed from', oldRole, 'to', newRole);
+      this.emit(RoleChanged, oldRole, newRole);
 
-      if (role === Leader) {
-        this.startHeartbeat();
+      if (newRole === Leader) {
+        this.resetHeartbeat();
         clearTimeout(this._electionT);
       } else {
         this.resetElectionTimer();
         clearTimeout(this._heartbeatT);
+      }
+    });
+
+    this.state.on(LeaderChanged, (oldLeader, newLeader) => {
+      this._dbg('Node leader changed from', oldLeader, 'to', newLeader);
+      this.emit(LeaderChanged, oldLeader, newLeader);
+      
+      if (this.state.currentLeader === this.id) {
+        return;
+      }
+
+      while (this._bcastMsgBuffer.length) {
+        const msg = new BroadcastMessage(this._bcastMsgBuffer.pop().payload);
+        this.getPeer(newLeader).stream.write(msg);
       }
     });
 
@@ -173,6 +200,7 @@ class Cluster extends EventEmitter {
       .on(Broadcast, (bCast) => this.handleBroadcast(bCast));
 
     this.resetElectionTimer();
+    //this.resetHeartbeat();
 
     return this;
   }
@@ -226,11 +254,11 @@ class Cluster extends EventEmitter {
   /**
    * Sends heartbeat messages to maintain authority and to replicate the log.
    */
-  startHeartbeat() {
+  resetHeartbeat() {
     this._heartbeatT &amp;&amp; clearTimeout(this._heartbeatT);
     this._heartbeatT = setTimeout(() => {
       this.emit(ReplicationTimeout);
-    }, 500);
+    }, Cluster.getReplicateTimeoutMs());
   }
   
   /**
@@ -249,37 +277,112 @@ class Cluster extends EventEmitter {
     }
     
     this._dbg('Advancing term.');
-    this.state.toNextTerm();
-    
-    this.state.setCurrentRole(Candidate);
-    this.state.voteFor(this.id);
+    this.state.currentTerm += 1;
+    this.state.votedFor = this.id;
 
     this._dbg('Requesting votes and resetting election timer.');
-    this.requestVotes();
-    this.resetElectionTimer();
-  }
+    this.state.setCurrentRole(Candidate);
+    this.state.votesReceived.clear();
+    this.state.votesReceived.add(this.id);
 
-  /**
-   * Requests votes from each peer.
-   *
-   * @returns {module:brig/consensus~Cluster}
-   */
-  requestVotes() {
     this._dbg('Requesting votes.');
+    let lastTerm = 0;
+
+    if (this.state.log.entries.length > 0) {
+      lastTerm = this.state.log.getEntryByIndex(
+        this.state.log.entries.length - 1).term;
+    }
 
     const msg = new VoteRequestMessage({
-      peerId: this.id, 
+      candidateId: this.id, 
       currentTerm: this.state.currentTerm, 
       currentLogLength: this.state.log.entries.length, 
-      currentLogLastTerm: this.state.lastTerm
+      currentLogLastTerm: lastTerm
     });
 
     for (let i = 0; i &lt; this.peers.length; i++) {
+      if (this.peers[i].id === this.id) {
+        continue;
+      }
       this._dbg('Sending message: ', msg, ' to peer: ', this.peers[i].id);
       this.peers[i].stream.write(msg);
     }
 
     return this;
+  }
+
+  /**
+   * When the replication timer expires, the leader will synchronize its log 
+   * with all followers. The synchronization message also serves as a heartbeat 
+   * message.
+   *
+   */
+  handleReplicateLog() {
+    if (this.state.currentRole !== Leader) {
+      this._dbg('Not clusters leader, so will not replicate.');
+      return;
+    }
+
+    for (let i = 0; i &lt; this.peers.length; i++) {
+      if (this.peers[i].id === this.id) {
+        continue;
+      }
+
+      this.replicateLog(this.getPeer(this.id), this.peers[i]);
+    }
+  }
+
+    /**
+   * Helper function that synchronizes the log of the leader with a follower.
+   * The simplest way to synchronize the log is to send the entire log to the 
+   * follower. However, this is inefficient. As mentioned earlier, the leader 
+   * assumes that the log of the follower is the same as its own log when it 
+   * becomes a leader. Therefore, the leader only needs to send the log entries 
+   * that the follower does not have.
+   *
+   * ```
+   * sentLength[follower] := log.length 
+   * // the node assumes that the log of the follower is the same as its own log
+   * ```
+   *
+   * The leader maintains a variable `sentLength` for each follower. 
+   * `sentLength[follower]` denotes the length of the log that the leader 
+   * believes the follower has. When the leader synchronizes the logs with the 
+   * follower, it will send the log entries after `sentLength[follower]`. If 
+   * the synchronization is failed, the leader will decrease 
+   * `sentLength[follower]` by 1, and try again.
+   *
+   * @param {module:brig/consensus~Peer} leader - Peer to replicate from.
+   * @param {module:brig/consensus~Peer} follower - Peer to replicate to.
+   */
+  replicateLog(leader, follower) {
+    this._dbg('Replicate log from', leader.id, 'to', follower.id);
+
+    // We call the log entries that the leader believes are already replicated 
+    // on the follower as prefix.
+    const prefixLength = this.state.sentLength.get(follower.id);
+
+    // Only send the suffix of the log to the follower.
+    const suffix = this.state.log.getEntriesAfterIndex(prefixLength - 1);
+
+    // prefixTerm is the term of the last log entry in the prefix. We will 
+    // explain it later.
+    let prefixTerm = 0;
+
+    if (prefixLength > 0) {
+      prefixTerm = this.state.log.getEntryByIndex(prefixLength - 1).term;
+    }
+
+    const msg = new LogRequestMessage({
+      leaderId: leader.id,
+      term: this.state.currentTerm,
+      prefixLength,
+      prefixTerm,
+      leaderCommit: this.state.commitLength,
+      suffix
+    });
+
+    follower.stream.write(msg);
   }
 
   /**
@@ -304,8 +407,6 @@ class Cluster extends EventEmitter {
   handleVoteRequest(vReq) {
     this._dbg('Handling VoteRequest: ', vReq);
 
-    const { params: p } = vReq;
-
     // If the term of the candidate is greater than the current term of the 
     // node, then the node should update its current term to the term of the 
     // candidate, and become a follower. This is because:
@@ -316,23 +417,25 @@ class Cluster extends EventEmitter {
     // 2. If the current node is a leader: it might be disconnected from the 
     // network or crashed for a while. In this case, the current node should 
     // step down and become a follower.
-    if (p.currentTerm > this.state.currentTerm) {
-      while (this.state.currentTerm &lt; p.currentTerm) {
-        this.state.toNextTerm();
-      }
-
+    if (vReq.currentTerm > this.state.currentTerm) {
+      this.state.currentTerm = vReq.currentTerm;
       this.state.setCurrentRole(Follower);
-      this.state.voteFor(p.peerId);
+      this.state.voteFor = null;
     }
 
+    let lastTerm = 0;
+
+    if (this.state.log.entries.length > 0) {
+      lastTerm = this.state.log.entries[this.state.log.entries.length - 1].term;
+    }
     // Check if the log of the candidate is more up-to-date than the log of 
     // the node. logOk means the log of the candidate is more up-to-date than 
     // the log of the current node.
-    const logOk = (p.currentTerm > this.state.lastTerm) ||
-      ((p.currentLogLastTerm === this.state.lastTerm) &amp;&amp;
-        p.currentLogLength >= this.state.log.entries.length);
-    const votedForNode = this.state.votedFor === p.peerId;
+    const logOk = vReq.currentLogLastTerm > lastTerm
+      || (vReq.currentLogLastTerm === lastTerm &amp;&amp; 
+          vReq.currentLogLength >= this.state.log.entries.length);
 
+    let granted = false;
     // 1. If the term of the candidate is less than the current term of the 
     // node, then the node should reject the vote request.
     //
@@ -341,24 +444,24 @@ class Cluster extends EventEmitter {
     // 
     // 3. If the node has already voted for another candidate in the current 
     // term, then the node should reject the vote request. 
-    if ((p.currentTerm === this.state.currentTerm) &amp;&amp; logOk &amp;&amp; votedForNode) {
-      this.state.voteFor(p.peerId);
-      this.getPeer(p.peerId).stream.write(new VoteResponseMessage({
-        peerId: this.id,
-        currentTerm: this.state.currentTerm,
-        voteCasted: true
-      }));
-    } else {
-      this.getPeer(p.peerId).stream.write(new VoteResponseMessage({
-        peerId: this.id,
-        currentTerm: this.state.currentTerm,
-        // If false this means the node does not vote for the candidate, and 
-        // the node will inform the candidate its current term. This is 
-        // because the candidate may have a smaller term, and the node should 
-        // make the candidate to update its term.
-        voteCasted: false
-      }));
+    if (vReq.currentTerm >= this.state.currentTerm
+      &amp;&amp; logOk 
+      &amp;&amp; (this.state.votedFor === null || this.state.votedFor === vReq.candidateId)) {
+      this.state.votedFor = vReq.candidateId;
+      granted = true;
     }
+
+    const msg = new VoteResponseMessage({
+      voterId: this.id,
+      term: this.state.currentTerm,
+      // If false this means the node does not vote for the candidate, and 
+      // the node will inform the candidate its current term. This is 
+      // because the candidate may have a smaller term, and the node should 
+      // make the candidate to update its term.
+      granted
+    });
+
+    this.getPeer(vReq.candidateId).stream.write(msg);
   }
 
   /**
@@ -371,45 +474,53 @@ class Cluster extends EventEmitter {
    */
   handleVoteResponse(vRes) {
     this._dbg('Handling vote response: ', vRes);
-
-    const { result: r } = vRes;
-    const isCandidate = this.state.currentRole === Candidate;
-    const isCurrentTerm = r.currentTerm === this.state.currentTerm;
-    const minVotesToWin = Math.ceil((this.peers.length + 1) / 2);
     
+    const isCandidate = this.state.currentRole === Candidate;
+    const isCurrentTerm = vRes.term === this.state.currentTerm;
+    const minVotesToWin = Math.ceil((this.peers.length + 1) / 2);
+   
+    this._dbg(isCandidate 
+      ? 'Node is a candidate for the current term.'
+      : 'Node is no longer a candidate for this term.');
+
+    this._dbg('Vote term:', vRes.term, 
+      ', Current term:', this.state.currentTerm);
+
     // If the node is a candidate, and the term of the vote response is the 
     // same as the current term of the node, and the vote response is granted, 
     // then the node should add the voter to the list of votes received.
-    if (isCandidate &amp;&amp; isCurrentTerm &amp;&amp; r.voteCasted) {
+    if (isCandidate &amp;&amp; isCurrentTerm &amp;&amp; vRes.granted) {
       this._dbg('Received a vote for the current term.');
-      this.state.votesReceived.add(r.peerId);
+      this.state.votesReceived.add(vRes.voterId);
     }
 
-    this._dbg('Votes: ', this.state.votesReceived.size, 
-      'Needed: ', minVotesToWin);
+    this._dbg('Votes received:', this.state.votesReceived.size, 
+      '/', minVotesToWin);
 
     // If the node receives a majority of votes, then the node becomes a leader.
     if (this.state.votesReceived.size >= minVotesToWin) {
       this._dbg('Node won the election.');
 
       // The node becomes the leader of itself.
-      this.state.setCurrentRole(Leader); 
+      this.state.setCurrentRole(Leader);  
       this.state.currentLeader = this.id;
 
       // For each follower, the node should send a heartbeat message to it.
       for (let i = 0; i &lt; this.peers.length; i++) {
-        this._dbg('Sending heartbeat to: ', this.peers[i].id);
+        if (this.peers[i].id === this.id) {
+          continue;
+        }
 
         // The node assumes that the log of the follower is the same as its 
         // own log.
-        this.state.sentLength.set(r.peerId, this.state.log.entries.length);
+        this.state.sentLength.set(this.peers[i].id, this.state.log.entries.length);
 
         // The node does not receive any ack from the follower.
-        this.state.ackedLength.set(r.peerId, 0);
-
-        this.replicateLog(this.getPeer(this.id), this.getPeer(r.peerId));
+        this.state.ackedLength.set(this.peers[i].id, 0);
       }
-    } else if (r.currentTerm > this.state.currentTerm) {
+        
+      this.handleReplicateLog();
+    } else if (vRes.term > this.state.currentTerm) {
       this._dbg('Vote response is from a future term, following.');
 
       // However, if the term of the vote response is greater than the current 
@@ -417,127 +528,13 @@ class Cluster extends EventEmitter {
       // term of the vote response, and become a follower. This is because the 
       // current node is already out of date, and it should step down and 
       // become a follower to avoid multiple leaders in the current term.
-      this.state.currentTerm = r.currentTerm;
+      this.state.currentTerm = vRes.term;
       this.state.setCurrentRole(Follower);
-      this.state.voteFor(null);
+      this.state.votedFor = null;
       this.resetElectionTimer();
     }
   }
-
-  /**
-   * Helper function that synchronizes the log of the leader with a follower.
-   * The simplest way to synchronize the log is to send the entire log to the 
-   * follower. However, this is inefficient. As mentioned earlier, the leader 
-   * assumes that the log of the follower is the same as its own log when it 
-   * becomes a leader. Therefore, the leader only needs to send the log entries 
-   * that the follower does not have.
-   *
-   * ```
-   * sentLength[follower] := log.length 
-   * // the node assumes that the log of the follower is the same as its own log
-   * ```
-   *
-   * The leader maintains a variable `sentLength` for each follower. 
-   * `sentLength[follower]` denotes the length of the log that the leader 
-   * believes the follower has. When the leader synchronizes the logs with the 
-   * follower, it will send the log entries after `sentLength[follower]`. If 
-   * the synchronization is failed, the leader will decrease 
-   * `sentLength[follower]` by 1, and try again.
-   *
-   * @param {module:brig/consensus~Peer} leader - Peer to replicate from.
-   * @param {module:brig/consensus~Peer} follower - Peer to replicate to.
-   */
-  replicateLog(leader, follower) {
-    // We call the log entries that the leader believes are already replicated 
-    // on the follower as prefix.
-    const prefixLength = this.state.sentLength.get(follower.id);
-
-    // Only send the suffix of the log to the follower.
-    const suffix = this.state.log.getEntriesAfterIndex(prefixLength);
-
-    // prefixTerm is the term of the last log entry in the prefix. We will 
-    // explain it later.
-    let prefixTerm = 0;
-
-    if (prefixLength > 0) {
-      prefixTerm = this.state.log.getEntryByIndex(prefixLength - 1).term;
-    }
-
-    follower.stream.write(new LogRequestMessage({
-      leaderId: leader.id,
-      term: this.state.currentTerm,
-      prefixLength,
-      prefixTerm,
-      leaderCommit: this.state.commitLength,
-      suffix
-    }));
-  }
-
-  /**
-   * Helper function for broadcasting a log entry.
-   *
-   * @param {object} payload - Key-value pairs to include in log entry.
-   * @returns {module:brig/consensus~Cluster}
-   */
-  broadcast(payload) {
-    return this.emit(Broadcast, payload);
-  }
-
-  /**
-   * When the application layer triggers a broadcast, the leader will append 
-   * the broadcast message to its log, and send the log entry to all followers. 
-   * If the current node is not a leader, it will forward the broadcast message 
-   * to the leader.
-   *
-   * @param {object} payload - Payload to be included in log entry broadcasted.
-   */
-  handleBroadcast(bCast) {
-    this._dbg('Broadcasting payload: ', bCast);  
-
-    // If the node is a leader, then it can directly append the message to its 
-    // log.
-    if (this.state.currentRole === Leader) {
-      this._dbg('Node is Leader. Appending and replicating.');
-      this.state.log.append(new LogEntry(bCast, this.state.currentTerm));
-
-      // The node is synchronized with itself.
-      this.state.ackedLength[this.id] = this.state.log.entries.length;
-
-      // Synchronize the log with all followers.
-      for (let i = 0; i &lt; this.peers.length; i++) {
-        this.replicateLog(this.getPeer(this.id), this.peers[i]);
-      }
-    } else if (this.state.currentLeader !== null) {
-      this._dbg('Node is not Leader, so replicating to the Leader.');
-      // If the node is not a leader, but it follows a leader, then it should 
-      // forward the request to the leader.
-      this.replicateLog(this.getPeer(this.id), 
-        this.getPeer(this.state.currentLeader));
-    } else { 
-      this._dbg('Node is not Leader and does not follow one. Waiting.');
-      // If the node is not a leader, and it does not follow a 
-      // leader, then it should buffer the message until it follows a leader.
-      this.once(RoleChanged, (_role) => {
-        this._dbg('Node is now role: ', _role, ' retrying broadcast.');
-        this.handleBroadcast(bCast);
-      });
-    }
-  }
-
-  /**
-   * When the replication timer expires, the leader will synchronize its log 
-   * with all followers. The synchronization message also serves as a heartbeat 
-   * message.
-   *
-   */
-  handleReplicateLog() {
-    if (this.state.currentRole === Leader) {
-      for (let i = 0; i &lt; this.peers.length; i++) {
-        this.replicateLog(this.getPeer(this.id), this.peers[i]);
-      }
-    }
-  }
-
+ 
   /**
    * When a follower receives a synchronization message from the leader, it 
    * will perform the following steps:
@@ -566,53 +563,51 @@ class Cluster extends EventEmitter {
   handleLogRequest(lReq) {
     this._dbg('Handling LogRequestMessage:', lReq);
 
-    const { params: p } = lReq;
-    
     // If the term of the log request is greater than the current term of the 
     // node, then the node should become a follower of the leader.
-    if (p.term > this.state.currentTerm) {
-      this.state.currentTerm = p.term;
-      this.state.voteFor(null);
+    if (lReq.term > this.state.currentTerm) {
+      this.state.currentTerm = lReq.term;
+      this.state.votedFor = null;
       this.resetElectionTimer();
     } 
 
     // If the term of the log request is the same as the current term of the 
     // node, then the node should become a follower of the leader (the current 
     // node might be a candidate).
-    if (this.state.currentRole === Candidate &amp;&amp; p.term === this.state.currentTerm) {
-      this.state.setCurrentRole(Follower);
-      this.state.currentLeader = p.leaderId;
+    if (lReq.term === this.state.currentTerm) {
+      this.state.setCurrentRole(Follower); 
+      this.state.currentLeader = lReq.leaderId;
+      this.resetElectionTimer();
     }
 
     // If logOk is true, then the prefix of the leader is the same as the 
     // prefix of the follower. Otherwise, the leader should send the log 
     // request again.
-    const logOk = (this.state.log.entries.length >= p.prefixLength) &amp;&amp;
-      (p.prefixLength === 0 || 
-        this.state.log.entries[p.prefixLength - 1].term === p.prefixTerm);
+    const logOk = (this.state.log.entries.length >= lReq.prefixLength) 
+      &amp;&amp; (lReq.prefixLength === 0 
+        || this.state.log.entries[lReq.prefixLength - 1].term === lReq.prefixTerm);
 
-    if (p.term === this.state.currentTerm &amp;&amp; logOk) {
+    let ack = 0;
+    let success = false;
+
+    if (lReq.term === this.state.currentTerm &amp;&amp; logOk) {
       // Update the log using suffix.
-      this.appendEntries(p.prefixLength, p.leaderCommit, p.suffix);
+      this.appendEntries(lReq.prefixLength, lReq.leaderCommit, lReq.suffix);
 
       // The node should notify the leader that it has received the log 
       // entries.
-      const ack = p.prefixLength + p.suffix.length;
-
-      this.getPeer(p.leaderId).stream.write(new LogResponseMessage({
-        followerId: this.id,
-        term: this.state.currentTerm,
-        ack,
-        success: true
-      }));
-    } else {
-      this.getPeer(p.leaderId).stream.write(new LogResponseMessage({
-        followerId: this.id,
-        term: this.state.currentTerm,
-        ack: 0,
-        success: true
-      }));
+      ack = lReq.prefixLength + lReq.suffix.length;
+      success = true;
     }
+
+    const msg = new LogResponseMessage({
+      followerId: this.id,
+      term: this.state.currentTerm,
+      ack,
+      success
+    });
+
+    this.getPeer(lReq.leaderId).stream.write(msg);
   }
 
   /**
@@ -636,21 +631,17 @@ class Cluster extends EventEmitter {
       let index = Math.min(this.state.log.entries.length, 
         prefixLength + suffix.length) - 1;
 
-
-
       // If they have different terms, then the suffix of the follower might be 
       // different from the suffix of the leader.
-      if (this.state.log.entries[index].term !== suffix[index - prefixLength].term) {
-        
+      if (this.state.log.entries[index].term !== suffix[index - prefixLength].term) {       
         // Remove the suffix of the follower.
         this.state.log.entries = this.state.log.entries.slice(0, prefixLength);
       }
     }
 
-    // If the we can find log entries that can be appended.
+    // If the we can find log entries that can be appended. TODO?
     if (prefixLength + suffix.length > this.state.log.entries.length) {
       for (let i = this.state.log.entries.length - prefixLength; i &lt; suffix.length; i++) {
-
         // Append the log entries to the log.
         this.state.log.append(suffix[i]); 
       }
@@ -659,8 +650,8 @@ class Cluster extends EventEmitter {
     // logs[0..leaderCommit − 1] are acknowledged by the majority of nodes, so 
     // we can commit those log entries.
     if (leaderCommit > this.state.commitLength) {
-      for (let i = this.state.commitLength; i &lt; leaderCommit; i++) {
-        this.emit(LogCommit, this.state.log.entries[i]);
+      for (let i = this.state.commitLength; i &lt; leaderCommit; i++) { // TODO?
+        this.emit(LogCommit, this.state.log.entries[i]); // TODO?
       }
 
       this.state.commitLength = leaderCommit;
@@ -683,27 +674,96 @@ class Cluster extends EventEmitter {
   handleLogResponse(lRes) {
     this._dbg('Handling LogResponseMessage:', lRes);
 
-    const { result: r } = lRes;
-
-    if (r.term === this.state.currentTerm &amp;&amp; this.state.currentRole === Leader) {
-      if (r.success &amp;&amp; r.ack >= this.state.ackedLength.get(r.followerId)) {
-        this.state.sentLength.set(r.followerId, r.ack);
-        this.state.ackedLength.set(r.followerId, r.ack);
+    if (lRes.term === this.state.currentTerm &amp;&amp; this.state.currentRole === Leader) {
+      if (lRes.success &amp;&amp; lRes.ack >= this.state.ackedLength.get(lRes.followerId)) {
+        this.state.sentLength.set(lRes.followerId, lRes.ack);
+        this.state.ackedLength.set(lRes.followerId, lRes.ack);
         this.commitLogEntries();
-      } else if (this.state.sentLength.get(r.followerId) > 0) {
-        this.state.sentLength.set(r.followerId, 
-          this.state.sentLength.get(r.followerId) - 1);
-        this.replicateLog(this.getPeer(this.id), this.getPeer(r.followerId));
+      } else if (this.state.sentLength.get(lRes.followerId) > 0) {
+        this.state.sentLength.set(lRes.followerId, 
+          this.state.sentLength.get(lRes.followerId) - 1);
+        this.replicateLog(this.getPeer(this.id), this.getPeer(lRes.followerId));
       }
-    } else if (r.term > this.state.currentTerm) {
-      this.state.currentTerm = r.term;
+    } else if (lRes.term > this.state.currentTerm) {
+      this.state.currentTerm = lRes.term;
       this.state.setCurrentRole(Follower);
-      this.state.voteFor(null);
+      this.state.votedFor = null;
       this.resetElectionTimer();
     }
   }
 
   /**
+   * Helper function for broadcasting a log entry.
+   *
+   * @param {object} payload - Key-value pairs to include in log entry.
+   * @returns {module:brig/consensus~Cluster}
+   */
+  broadcast(payload) {
+    return this.emit(Broadcast, new BroadcastMessage(payload));
+  }
+
+  /**
+   * When the application layer triggers a broadcast, the leader will append 
+   * the broadcast message to its log, and send the log entry to all followers. 
+   * If the current node is not a leader, it will forward the broadcast message 
+   * to the leader.
+   *
+   * @param {object} payload - Payload to be included in log entry broadcasted.
+   */
+  handleBroadcast(bCast) {
+    this._dbg('Broadcasting payload: ', bCast);  
+
+    // If the node is a leader, then it can directly append the message to its 
+    // log.
+    if (this.state.currentRole === Leader) {
+      this._dbg('Node is Leader. Appending and replicating.');
+      const msg = new BroadcastMessage(bCast);
+      this.state.log.append(new LogEntry(msg, this.state.currentTerm));
+
+      // The node is synchronized with itself.
+      this.state.ackedLength.set(this.id, this.state.log.entries.length);
+
+      // Synchronize the log with all followers.
+      this.handleReplicateLog();
+    } else if (this.state.currentLeader !== null) {
+      this._dbg('Node is not Leader, so replicating to the Leader.');
+      // If the node is not a leader, but it follows a leader, then it should 
+      // forward the request to the leader.
+      const msg = new BroadcastMessage(bCast.payload);
+      this.getPeer(this.state.currentLeader).stream.write(msg);
+    } else { 
+      this._dbg('Node is not Leader and does not follow one. Waiting.');
+      // If the node is not a leader, and it does not follow a 
+      // leader, then it should buffer the message until it follows a leader.
+      this._bcastMsgBuffer.push(bCast);
+    }
+  }
+    
+  /**
+   * If the leader receives a majority of acknowledgements for a log entry, it 
+   * will commit the log entry.
+   *
+   */
+  commitLogEntries() {
+    const minAcks = (this.peers.length + 1) / 2;
+    let readyMax = 0;
+
+    for (let i = this.state.commitLength + 1; i &lt; this.state.log.entries.length + 1; i++) {
+      if (this.acks(i) >= minAcks) {
+        readyMax = i;
+      }
+    }
+
+    if (readyMax > 0 &amp;&amp; this.state.log.entries[readyMax - 1].term === this.state.currentTerm) {
+      for (let i = this.state.commitLength; i &lt; readyMax; i++) { // TODO?
+        this.emit(LogCommit, this.state.log.entries[i]);
+      }
+
+      this.state.commitLength = readyMax;
+    }
+  }
+
+    /**
    * The number of nodes whose `ackedLength` is greater than or equal to x.
    *
    * @param {number} x - Minimum number of acks.
@@ -714,38 +774,14 @@ class Cluster extends EventEmitter {
     
     for (let len of this.state.ackedLength.values()) {
       if (len >= length) {
-        acks++;
+        acks += 1;
       }
     }
 
     return acks;
   }
-    
-  /**
-   * If the leader receives a majority of acknowledgements for a log entry, it 
-   * will commit the log entry.
-   *
-   */
-  commitLogEntries() {
-    const minAcks = ((this.peers.length + 1) + 1) / 2;
-    let readyMax = 0;
-
-    for (let i = this.state.commitLength + 1; i &lt; this.state.log.entries.length + 1; i++) {
-      if (this.acks(i) >= minAcks) {
-        readyMax = i;
-      }
-    }
-
-    if (readyMax > 0 &amp;&amp; this.state.log.entries[readyMax - 1].term === this.state.currentTerm) {
-      for (let i = this.state.commitLength; i &lt; readyMax; i++) {
-        this.emit(LogCommit, this.state.log.entries[i]);
-      }
-
-      this.state.commitLength = readyMax;
-    }
-  }
 
 }
 
 module.exports.Cluster = Cluster;
-</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><div class="mobile-nav-links"></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig.html">brig</a></div><div class="sidebar-section-children"><a href="module-brig_consensus.html">brig/consensus</a></div><div class="sidebar-section-children"><a href="module-brig_events.html">brig/events</a></div><div class="sidebar-section-children"><a href="module-brig_log.html">brig/log</a></div><div class="sidebar-section-children"><a href="module-brig_messages.html">brig/messages</a></div><div class="sidebar-section-children"><a href="module-brig_roles.html">brig/roles</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_consensus-Cluster.html">Cluster</a></div><div class="sidebar-section-children"><a href="module-brig_consensus-Peer.html">Peer</a></div><div class="sidebar-section-children"><a href="module-brig_log-Log.html">Log</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogEntry.html">LogEntry</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogState.html">LogState</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogRequestMessage.html">LogRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogResponseMessage.html">LogResponseMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteRequestMessage.html">VoteRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteResponseMessage.html">VoteResponseMessage</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-events"><div>Events</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_events.html#~event:Broadcast">Broadcast</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:Debug">Debug</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ElectionTimeout">ElectionTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogCommit">LogCommit</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogRequest">LogRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogResponse">LogResponse</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ReplicationTimeout">ReplicationTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:RoleChanged">RoleChanged</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteRequest">VoteRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteResponse">VoteResponse</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>
+</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><div class="mobile-nav-links"></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig.html">brig</a></div><div class="sidebar-section-children"><a href="module-brig_consensus.html">brig/consensus</a></div><div class="sidebar-section-children"><a href="module-brig_events.html">brig/events</a></div><div class="sidebar-section-children"><a href="module-brig_log.html">brig/log</a></div><div class="sidebar-section-children"><a href="module-brig_messages.html">brig/messages</a></div><div class="sidebar-section-children"><a href="module-brig_roles.html">brig/roles</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_consensus-Cluster.html">Cluster</a></div><div class="sidebar-section-children"><a href="module-brig_consensus-Peer.html">Peer</a></div><div class="sidebar-section-children"><a href="module-brig_log-Log.html">Log</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogEntry.html">LogEntry</a></div><div class="sidebar-section-children"><a href="module-brig_log-LogState.html">LogState</a></div><div class="sidebar-section-children"><a href="module-brig_messages-BroadcastMessage.html">BroadcastMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogRequestMessage.html">LogRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-LogResponseMessage.html">LogResponseMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteRequestMessage.html">VoteRequestMessage</a></div><div class="sidebar-section-children"><a href="module-brig_messages-VoteResponseMessage.html">VoteResponseMessage</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-events"><div>Events</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-brig_events.html#~event:Broadcast">Broadcast</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:Debug">Debug</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ElectionTimeout">ElectionTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogCommit">LogCommit</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogRequest">LogRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:LogResponse">LogResponse</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:ReplicationTimeout">ReplicationTimeout</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:RoleChanged">RoleChanged</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:RoleChanged">RoleChanged</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteRequest">VoteRequest</a></div><div class="sidebar-section-children"><a href="module-brig_events.html#~event:VoteResponse">VoteResponse</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>
