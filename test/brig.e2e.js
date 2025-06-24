@@ -3,16 +3,16 @@
 const { PassThrough } = require('node:stream');
 const { randomUUID } = require('node:crypto');
 const { expect } = require('chai');
-const { events, consensus, roles } = require('..');
+const { events, consensus, roles, log } = require('..');
 
 
 describe('@module brig/consensus', function() {
 
-  const NODES = 3;
+  this.timeout(8000);
+
+  const NODES = 6;
   const PEERS = [];
   const CONSENSUS = [];
-
-  this.timeout(Infinity);
 
   before(async function() {
     for (let i = 0; i < NODES; i++) {
@@ -27,6 +27,13 @@ describe('@module brig/consensus', function() {
 
       for (let c = 0; c < PEERS.length; c++) {
         peers.push(PEERS[c]);
+      }
+
+      let shifts = 0;
+
+      while (shifts < p) {
+        peers.push(peers.shift());
+        shifts++;
       }
 
       CONSENSUS.push(new consensus.Cluster(peer.id, peers));
@@ -51,7 +58,7 @@ describe('@module brig/consensus', function() {
           setTimeout(function() {
             cluster.join();
             resolve();
-          }, 200);
+          }, 250);
         });
       })()
     }
@@ -71,17 +78,17 @@ describe('@module brig/consensus', function() {
       CONSENSUS[0].broadcast({
         genesis: 'entry'
       });
-      /*setTimeout(() => {
+      setTimeout(() => {
         CONSENSUS.forEach(c => {
           expect(c.state.log.entries).to.have.lengthOf(1);
           expect(c.state.log.entries[0].payload.genesis).to.equal('entry');
         });
         done()
-      }, 1000);*/
+      }, 1000);
     });
 
-    it.skip('can sync state transitions from all nodes', function(done) {
-      this.timeout(3000 * CONSENSUS.length + 200);
+    it('can sync state transitions from all nodes', function(done) {
+      this.timeout((3000 * CONSENSUS.length) + 200);
 
       for (let i = 0; i < CONSENSUS.length; i++) {
         setTimeout(() => {
@@ -90,9 +97,12 @@ describe('@module brig/consensus', function() {
       }
       setTimeout(() => {
         console.log(CONSENSUS.map(c => { 
-          return {id:c.id, 
-          role:c.state.currentRole 
-        }}))
+          return {
+            id:c.id, 
+            role:c.state.currentRole 
+          }
+        }));
+        console.log(CONSENSUS.map(c=>c.state.currentLeader))
         console.log(CONSENSUS.map(c=>c.state.log.entries.map(e=>e.payload)))
         CONSENSUS.forEach(c => {
           expect(c.state.log.entries).to.have.lengthOf(CONSENSUS.length + 1);
