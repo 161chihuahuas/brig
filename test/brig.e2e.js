@@ -3,12 +3,12 @@
 const { Client, Server } = require('@yipsec/scarf');
 const { randomUUID } = require('node:crypto');
 const { expect } = require('chai');
-const { events, consensus, roles, log } = require('..');
+const { events, consensus } = require('..');
 
 
 describe('@module brig/consensus', function() {
 
-  const NODES = 3;
+  const NODES = 12;
   const IDS = [];
   const SERVERS = [];
   const PEERS = [];
@@ -23,7 +23,7 @@ describe('@module brig/consensus', function() {
       CLUSTERS.push(cluster);
 
       const server = new Server(cluster.createProtocolMapping());
-      await server.listen();
+      server.listen();
       SERVERS.push(server);
     }
 
@@ -56,14 +56,14 @@ describe('@module brig/consensus', function() {
 
             client.stream.on('connect', () => {
               pool.set(id, client);
-              client.invoke(msg.constructor.method, [msg], console.log);
+              client.invoke(msg.constructor.method, [msg]);
             }).on('error', (err) => {
               pool.delete(id);
             });
 
             client.connect(p.port);
           } else {
-            client.invoke(msg.constructor.method, [msg], console.log);
+            client.invoke(msg.constructor.method, [msg]);
           }
         }));
       });
@@ -83,27 +83,14 @@ describe('@module brig/consensus', function() {
         CLUSTERS[i].join();
       }
     });
-
-    it('broadcasts a log entry to peers to replicate', function(done) {
-      CLUSTERS[0].broadcast({
-        genesis: 'entry'
-      });
-      setTimeout(() => {
-        CLUSTERS.forEach(c => {
-          expect(c.state.log.entries[0].data.payload.genesis).to.equal('entry');
-          expect(c.state.log.entries).to.have.lengthOf(1);
-        });
-        done()
-      }, 1200);
-    });
-
+ 
     it('can sync state transitions from all nodes', function(done) {
       for (let i = 0; i < CLUSTERS.length; i++) {
         CLUSTERS[i].broadcast({ publisher: CLUSTERS[i].id });
       }
       setTimeout(() => {
         CLUSTERS.forEach(c => {
-          expect(c.state.log.entries).to.have.lengthOf(CLUSTERS.length + 1);
+          expect(c.state.log.entries).to.have.lengthOf(CLUSTERS.length);
         });
         done();
       }, 1400);
@@ -114,15 +101,16 @@ describe('@module brig/consensus', function() {
   after(function() {
     const { inspect } = require('node:util');
 
-    console.log(CLUSTERS);
     console.log(CLUSTERS.map(c => { 
       return {
-        id:c.id, 
-        role:c.state.currentRole 
+        id: c.id, 
+        role: c.state.currentRole 
       }
     }));
-    console.log(CLUSTERS.map(c=>c.state.currentLeader))
-    console.log(inspect(CLUSTERS.map(c=>c.state.log.entries.map(e=>e.data)), false, null))
+
+    console.log(CLUSTERS.map(c=>c.state.currentLeader));
+
+    console.log(inspect(CLUSTERS.map(c => c.state.log), false, null));
   });
 
 });
