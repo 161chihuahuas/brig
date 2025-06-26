@@ -13,40 +13,54 @@ npm install @yipsec/brig
 ## usage
 
 ```js
-// Example transport layer using passthrough streams.
-const { PassThrough } = require('node:stream');
-
-// Example peer IDs using UUID.
 const { randomUUID } = require('node:crypto');
-
-// Import the brig/consensus module.
+const { Client, Server } = require('@yipsec/scarf');
 const { events, consensus } = require('@yipsec/brig');
 
-// You must have at least 3 nodes for a valid cluster.
-const peer1 = new consensus.Peer(randomUUID(), new PassThrough({
-    objectMode: true
-}));
-const peer2 = new consensus.Peer(randomUUID(), new PassThrough({
-    objectMode: true
-}));
-const peer3 = new consensus.Peer(randomUUID(), new PassThrough({
-    objectMode: true
-}));
+// Give this node an ID
+const id = randomUUID();
 
-// Each peer is given to a cluster.
-const cluster1 = new consensus.Cluster(peer1.id, [peer1, peer2, peer3]).join(); 
-const cluster2 = new consensus.Cluster(peer2.id, [peer1, peer2, peer3]).join(); 
-const cluster3 = new consensus.Cluster(peer3.id, [peer1, peer2, peer3]).join(); 
+// Create a brig cluster
+const cluster = new consensus.Cluster(id);
 
-// A cluster can broadcast log payloads. They will be synchronized.
-cluster1.broadcast({ log: 'entry' });
+// Implement a message receiver
+const server = new Server(cluster.createProtocolMapping());
+server.listen();
 
-// The other nodes will have their state updated.
-cluster2.state.log.getEntryByIndex(0); // LogEntry <log: 'entry'>
-cluster3.state.log.getEntryByIndex(0); // LogEntry <log: 'entry'>
+// Simple connection pool example
+const pool = new Map();
+
+// Implement a message transmitter
+function deliverMsg(id, msg) {
+  let client = pool.get(id);
+
+  if (!client) {
+    client = new Client();
+
+    client.stream.on('connect', () => {
+      pool.set(id, client);
+      client.invoke(msg.constructor.method, [msg]);
+    }).on('error', (err) => {
+      pool.delete(id);
+    });
+
+    client.connect(p.port);
+  } else {
+    client.invoke(msg.constructor.method, [msg]);
+  }
+}
+
+// Add a peer to the cluster
+cluster.addPeer(new consensus.Peer(randomUUID(), deliverMsg));
+
+// Begin cluster bootstrapping
+cluster.join();
+
+// Update the cluster log
+cluster.broadcast({ key: 'value' });
 
 // Persist log to disk.
-cluster1.state.serialize(); // Buffer <...>
+cluster.state.serialize(); // Buffer <...>
 ```
 
 ## copying
