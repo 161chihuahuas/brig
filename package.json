@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/161chihuahuas/brig#readme",
   "devDependencies": {
+    "@yipsec/scarf": "^1.0.0",
     "chai": "^5.2.0",
     "clean-jsdoc-theme": "^4.3.0",
     "jsdoc": "^4.0.4",

@@ -43,14 +43,13 @@ describe('@module brig/log', function() {
         initial: 'commit'
       }, 161));
       buf = logState.serialize();
-      console.log(buf.toString())
-      expect(buf.toString()).to.equal('{"currentTerm":1312,"votedFor":null,"currentLeader":null,"votesReceived":[],"log":[{"payload":{"initial":"commit"},"term":161}],"commitLength":0,"sentLength":[],"ackedLength":[]}');
+      expect(buf.toString()).to.equal('{"currentTerm":1312,"votedFor":null,"currentLeader":null,"votesReceived":[],"log":[{"data":{"initial":"commit"},"term":161}],"commitLength":0,"sentLength":[],"ackedLength":[]}');
     });
 
     it('deserializes from a json buffer', function() {
       const logState = log.LogState.deserialize(buf);
       expect(logState.currentTerm).to.equal(1312);
-      expect(logState.log.getEntryByIndex(0).payload.initial).equal('commit');
+      expect(logState.log.getEntryByIndex(0).data.initial).equal('commit');
     });
 
   });
